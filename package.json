@@ -1,0 +1,27 @@
+{
+  "name": "@red-cup-engineering/acceptance-oracle-assay-service",
+  "version": "2.0.3",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic assay of bounded acceptance-oracle evidence.",
+  "exports": {
+    ".": "./src/client.mjs",
+    "./client": "./src/client.mjs"
+  },
+  "scripts": {
+    "check": "node --check src/assay.mjs && node --check src/protocol.mjs && node --check src/client.mjs && node --check src/sovereign-provider.mjs && node --check scripts/execute-a2a-task.mjs && node --check scripts/server.mjs",
+    "test": "node --test test/*.test.mjs",
+    "verify": "npm run check && npm test"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "@a2a-js/sdk": "1.0.0-beta.0",
+    "@red-cup-engineering/a2a-contracted-agent-service": "2.0.7",
+    "@red-cup-engineering/a2a-rmn-part-service": "1.0.1",
+    "@red-cup-engineering/a2a-rmn-task-client-service": "1.1.2",
+    "@red-cup-engineering/semantic-content-identify-service": "0.2.2",
+    "@lenticule-science/witness-journal-rdf-projection-service": "1.0.3"
+  }
+}

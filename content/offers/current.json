@@ -1,0 +1,15 @@
+{
+  "type": "Offer",
+  "seller": "urn:ame:acceptance-oracle-assay-service",
+  "sku": "urn:sku:acceptance-oracle-assay",
+  "operation": "assay-acceptance-oracle",
+  "consideration": {
+    "type": "ContributedServiceAccounting",
+    "amount": 1,
+    "unit": "bounded-acceptance-oracle-assay",
+    "monetaryClaim": false,
+    "x402Applicable": false
+  },
+  "callable": "https://bare-cedar-fog.561.group/a2a/acceptance-oracle-assay/.well-known/agent-card.json",
+  "terms": "One deterministic assay of already-produced bounded evidence; the provider does not author, execute, review, or accept the oracle."
+}
