@@ -6,8 +6,7 @@
   "description": "Deterministic assay of bounded acceptance-oracle evidence.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/red-cup-engineering/computer-code-engineering-services-section.git",
-    "directory": "services/computer-code-development-services-section/services/acceptance-oracle-assay-service"
+    "url": "git+https://github.com/red-cup-engineering/acceptance-oracle-assay-service.git"
   },
   "exports": {
     ".": "./src/client.mjs",
