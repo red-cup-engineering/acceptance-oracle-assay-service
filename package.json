@@ -27,5 +27,10 @@
     "@red-cup-engineering/a2a-rmn-task-client-service": "workspace:*",
     "@red-cup-engineering/semantic-content-identify-service": "workspace:*",
     "@lenticule-science/witness-journal-rdf-projection-service": "workspace:*"
+  },
+  "license": "MIT",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/561-group/.github/blob/main/TIPS.md"
   }
 }
