@@ -1,0 +1,31 @@
+name: Acceptance evidence source admission
+
+on:
+  pull_request:
+    paths:
+      - src/assay.mjs
+      - test/assay-source-admission.test.mjs
+      - .github/workflows/acceptance-source-admission.yml
+  push:
+    paths:
+      - src/assay.mjs
+      - test/assay-source-admission.test.mjs
+      - .github/workflows/acceptance-source-admission.yml
+
+permissions:
+  contents: read
+
+jobs:
+  native-source-admission:
+    name: Node 22 source-integrity controls (no workspace deps)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax-check original assay
+        run: node --check src/assay.mjs
+      - name: Positive, adversarial, and refusal controls
+        run: node --test test/assay-source-admission.test.mjs
