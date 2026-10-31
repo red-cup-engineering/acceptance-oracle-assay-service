@@ -86,7 +86,7 @@ test("the Actor-facing client defaults to the Agent Card projected by its FOAM l
 });
 
 test("deployment retains a loopback listener while the signed Agent Card advertises its public face", () => {
-  const unit = readFileSync(new URL("../ops/systemd/acceptance-oracle-assay-service.service", import.meta.url), "utf8");
+  const unit = readFileSync(new URL("../data/records/systemd/acceptance-oracle-assay-service.service", import.meta.url), "utf8");
   assert.match(unit, /^Environment=HOST=127\.0\.0\.1$/mu);
   assert.match(unit, /^Environment=PORT=19845$/mu);
   assert.match(unit, /^Environment=BASE_URL=https:\/\/bare-cedar-fog\.561\.group\/a2a\/acceptance-oracle-assay$/mu);
