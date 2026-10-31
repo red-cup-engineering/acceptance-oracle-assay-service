@@ -5,11 +5,19 @@ on:
     paths:
       - src/assay.mjs
       - test/assay-source-admission.test.mjs
+      - test/assay.test.mjs
+      - scripts/server.mjs
+      - scripts/execute-a2a-task.mjs
+      - data/records/systemd/acceptance-oracle-assay-service.service
       - .github/workflows/acceptance-source-admission.yml
   push:
     paths:
       - src/assay.mjs
       - test/assay-source-admission.test.mjs
+      - test/assay.test.mjs
+      - scripts/server.mjs
+      - scripts/execute-a2a-task.mjs
+      - data/records/systemd/acceptance-oracle-assay-service.service
       - .github/workflows/acceptance-source-admission.yml
 
 permissions:
@@ -28,7 +36,11 @@ jobs:
         with:
           node-version: '22'
           package-manager-cache: false
-      - name: Syntax-check original assay
-        run: node --check src/assay.mjs
+      - name: Syntax-check original provider and test entry points
+        run: |
+          node --check src/assay.mjs
+          node --check scripts/server.mjs
+          node --check scripts/execute-a2a-task.mjs
+          node --check test/assay.test.mjs
       - name: Positive, adversarial, and refusal controls
         run: node --test test/assay-source-admission.test.mjs
