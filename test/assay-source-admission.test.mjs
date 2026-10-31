@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { readFileSync, existsSync } from 'node:fs';
 import {createHash} from 'node:crypto';
 import {assayAcceptanceOracle as assay} from '../src/assay.mjs';
 
@@ -102,4 +103,24 @@ test('top-level accessor cannot supply mutable manifest/oracle revisions',()=>{
   const f=fixture(); let calls=0;
   Object.defineProperty(f,'manifest',{enumerable:true,get(){calls++;return fixture().manifest;}});
   const r=assay(f); assert.equal(calls,0); assert.equal(r.accepted,false);
+});
+
+test('the original provider unit, server and full-test file paths resolve in this source revision', () => {
+  // The actual installed WorkingDirectory is a separate Operations receipt.
+  // This gate proves only that the original source package contains the paths
+  // used by its declared launcher, dispatch and native integration test.
+  const unitPath = new URL('../data/records/systemd/acceptance-oracle-assay-service.service', import.meta.url);
+  assert.equal(existsSync(unitPath), true, 'one original systemd source record must exist');
+  const unit = readFileSync(unitPath, 'utf8');
+  const start = unit.match(/^ExecStart=(.+)$/mu)?.[1];
+  assert.ok(start, 'the declared service has an ExecStart');
+  assert.match(start, /\s+scripts\/server\.mjs$/u, 'systemd launches the actual source script, not a legacy bin path');
+  assert.equal(existsSync(new URL('../scripts/server.mjs', import.meta.url)), true);
+  const server = readFileSync(new URL('../scripts/server.mjs', import.meta.url), 'utf8');
+  assert.match(server, /executorArgs:\s*\[resolve\(["']scripts\/execute-a2a-task\.mjs["']\)\]/u,
+    'the actual server dispatches its existing source-owned executor');
+  assert.equal(existsSync(new URL('../scripts/execute-a2a-task.mjs', import.meta.url)), true);
+  const fullTest = readFileSync(new URL('./assay.test.mjs', import.meta.url), 'utf8');
+  assert.ok(fullTest.includes('../data/records/systemd/acceptance-oracle-assay-service.service'),
+    'the full native test must read the canonical unit source rather than a missing ops path');
 });
