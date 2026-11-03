@@ -13,7 +13,7 @@ Environment=WITNESS_JOURNAL_RDF_AGENT=http://127.0.0.1:19764/.well-known/agent-c
 Environment=AGENT_CARD_SIGNING_KEY=data/agent-card-signing/ed25519-private.pem
 Environment=AGENT_CARD_JWKS=content/agent-card-signing/jwks.json
 Environment=AGENT_CARD_SIGNING_KID=acceptance-oracle-assay-service-ed25519
-ExecStart=/home/emsenn/.config/nvm/versions/node/v24.13.1/bin/node bin/server.mjs
+ExecStart=/home/emsenn/.config/nvm/versions/node/v24.13.1/bin/node scripts/server.mjs
 Restart=on-failure
 RestartSec=3
 NoNewPrivileges=true
